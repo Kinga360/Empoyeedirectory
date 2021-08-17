@@ -1,0 +1,106 @@
+employees = []
+ssns = []
+emails = []
+salaries = []
+employeenum = []
+f = open('myfile.txt','r+')
+
+indexs = ''
+decsisionOne = input("Enter add if you want to add an employee. \n Enter all if you want to view all of employees. "
+                     " \n Enter some if you want to view particular employees. \n Enter stop to stop the program \n")
+def employeeName():
+    employee = input('Enter the name of the employee \n')
+    employees.append(employee)
+    f.write(str('Employee name: ' + employee + '\n'))
+
+def getnum():
+    while True:
+        try:
+          employeenumber = int(input('Create an employee number \n'))
+          employeenum.append(employeenumber)
+          s = str(employeenum)
+          f.write(str('Employee number: ' + s+'\n'))
+          break
+        except ValueError:
+            print('Please enter an integer. \n')
+def getSSN():
+    while True:
+        try:
+         ssn = int(input('Enter the ssn \n'))
+         ssns.append(ssn)
+         s = str(ssn)
+         f.write(str('Social Security Number: ' + s +'\n'))
+         break
+        except ValueError:
+            print("Please enter an integer.")
+def getSalary():
+   while True:
+    try:
+        salary = float(input('Enter the salary \n'))
+        salaries.append(salary)
+        s = str(salary)
+        f.write(str('Salary: ' + s + '\n'))
+        break
+    except ValueError:
+        print('Please enter a proper money format. \n')
+def getEmail():
+    email = input('Enter the email address \n')
+    if email.find('@') == 1:
+     emails.append(email)
+     f.write(str('email: ' + email + '\n'))
+    while email.find('@') == -1:
+        print('Please enter a valid email \n')
+        email = input('Enter the email address \n')
+
+def addEmployee():
+ numberofpeople = ''
+ while True:
+  try:
+   numberofpeople = int(input('How many employees do you want to add? \n'))
+   break
+  except ValueError:
+    print('Please enter an integer \n')
+ index = 0
+ while index != numberofpeople:
+        employeeName()
+        getEmail()
+        getSSN()
+        getSalary()
+        getnum()
+        index = index + 1
+
+def viewEmployee():
+ while True:
+     try:
+      indexs= input('enter the employee number of the employee you want to view \n')
+      for i in range(len(employeenum)):
+       if int(indexs) == int(employeenum[i]):
+        print(employees[i], emails[i], ssns[i], salaries[i])
+       while int(indexs) != int(employeenum[i]):
+         if int(indexs) == int(employeenum[i]):
+             print('Employee: employees[i],\n Email: emails[i],\n Social Security Number: ssns[i] ,\n Salary: salaries[i]')
+             break
+         i = 1 + i
+     except:
+         print('Please enter an employee number \n')
+def viewAll():
+      for line in f:
+          print(line)
+      f.flush()
+      addEmployee()
+if decsisionOne.lower() == 'stop':
+    f.truncate(0)
+    exit()
+while decsisionOne.lower() != 'stop':
+
+ if decsisionOne.lower() == 'add':
+    addEmployee()
+ if decsisionOne.lower() == 'all':
+    viewAll()
+ if decsisionOne.lower() == 'some':
+    viewEmployee()
+ if decsisionOne.lower() == 'stop':
+     f.truncate(0)
+     exit()
+ decsisionOne = input("Enter add if you want to add an employee. \n Enter all if you want to view all of employees. \n"
+                      "Enter some if you want to view particular employees. \n Enter stop to stop the program")
